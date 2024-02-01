@@ -25,15 +25,18 @@ namespace Inventory.Controllers
 }*/
 
 using InventoryManagement.Domain;
+using InventoryManagement.DTO;
 using InventoryManagement.Reposits;
 using Microsoft.AspNetCore.Mvc;
- 
+
+
+
 namespace ProductManagementcommerce.Controllers
 
 {
 
     [ApiController]
-
+    [Route("Api/")]
     public class ProductController : Controller
 
     {
@@ -51,7 +54,7 @@ namespace ProductManagementcommerce.Controllers
 
         [HttpPost]
 
-        [Route("Add")]
+        [Route("Add/")]
 
         public IActionResult AddProduct([FromBody] ProductCategory updatedProduct)
 
@@ -104,6 +107,51 @@ namespace ProductManagementcommerce.Controllers
             }
 
         }
+        [HttpGet]
+        [Route("Get/{productId}")]
+        public IActionResult GetProduct(int productId)
+        {
+            try
+            {
+                var product = Repository.GetById(productId);
+
+                if (product == null)
+                {
+                    return NotFound($"Product with ID {productId} not found.");
+                }
+
+                return Ok(product);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception or handle it as needed
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+        [HttpDelete]
+        [Route("Delete/{productId}")]
+        public IActionResult DeleteProduct(int productId)
+        {
+            try
+            {
+                var product = Repository.GetById(productId);
+
+                if (product == null)
+                {
+                    return NotFound($"Product with ID {productId} not found.");
+                }
+
+                Repository.Delete(product);
+
+                return Ok($"Product with ID {productId} deleted successfully.");
+            }
+            catch (Exception ex)
+            {
+                // Log the exception or handle it as needed
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
 
     }
 

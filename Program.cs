@@ -5,6 +5,7 @@ using InventoryManagement.Reposits;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<IRepository<ProductCategory>, Repository<ProductCategory>>();
+builder.Services.AddScoped<IRepository<Product>, Repository<Product>>();
 // Add services to the container.
 builder.Services.AddDbContext<InventoryDbContext>(option =>
 {
