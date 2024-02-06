@@ -1,48 +1,73 @@
-﻿using InventoryManagement.Domain;
-using Microsoft.EntityFrameworkCore;
+﻿using InventoryManagement.Context;
+using InventoryManagement.Domain;
+using InventoryManagement.Interfaces;
+
 
 namespace InventoryManagement.Reposits
-
+{
+    public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseDomain
     {
-
-        public class Repository<T> : IRepository<T> where T : class
+        private readonly InventoryDbContext _context;
+        public Repository(InventoryDbContext context)
         {
-            private readonly InventoryDbContext _context;
-            private readonly DbSet<T> _entities;
-
-            public Repository(InventoryDbContext context)
-            {
-                _context = context;
-                _entities = context.Set<T>();
-            }
-
-            public T GetById(int id)
-            {
-                return _entities.Find(id);
-            }
-
-            public IEnumerable<T> GetAll()
-            {
-                return _entities.ToList();
-            }
-
-            public void Add(T entity)
-            {
-                _entities.Add(entity);
-                _context.SaveChanges();
-            }
-
-            public void Update(T entity)
-            {
-                _entities.Update(entity);
-                _context.SaveChanges();
-            }
-
-            public void Delete(T entity)
-            {
-                _entities.Remove(entity);
-                _context.SaveChanges();
-            }
+            _context = context;
         }
-}
+        public void Add(TEntity entity)
+        {
+            _context.Add(entity);
+            _context.SaveChanges();
+        }
 
+        public void AddRange(IEnumerable<TEntity> entities)
+        {
+            _context.AddRange(entities);
+            _context.SaveChanges();
+        }
+
+        public void Delete(TEntity entity)
+        {
+            _context.Remove(entity);
+            _context.SaveChanges();
+        }
+
+        public void DeleteRange(IEnumerable<TEntity> entities)
+        {
+            _context.RemoveRange(entities);
+            _context.SaveChanges();
+        }
+
+        public TEntity Get(Guid id)
+        {
+            return _context.Find<TEntity>(id);
+        }
+
+        public ICollection<TEntity> GetAll(ICollection<Guid>? ids)
+        {
+            ICollection<TEntity> list = new List<TEntity>();
+            if (ids != null)
+            {
+                foreach (var id in ids)
+                {
+                    list.Add(Get(id));
+                }
+            }
+            else
+            {
+                list = _context.Set<TEntity>().Where(t => t.Id != Guid.Empty).ToList();
+            }
+            return list;
+        }
+
+        public void Update(TEntity entity) 
+        {
+            _context.Update(entity);
+            _context.SaveChanges();
+        }
+
+        public void UpdateRange(IEnumerable<TEntity> entities)
+        {
+            _context.UpdateRange(entities);
+            _context.SaveChanges();
+        }
+    }
+}

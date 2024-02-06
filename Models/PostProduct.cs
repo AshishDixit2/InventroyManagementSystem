@@ -1,11 +1,10 @@
-﻿namespace InventoryManagement.DTO
+﻿namespace InventoryManagement.Models
 {
-    public class Modelclass
+    public class PostProduct
     {
-        public int CategoryId { get; set; }
         public string Name { get; set; }
         public int Quantity { get; set; }
         public string Measurement { get; set; }
+        public Guid CategoryId { get; set; }
     }
-
 }

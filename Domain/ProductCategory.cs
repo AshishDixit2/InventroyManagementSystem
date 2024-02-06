@@ -3,10 +3,8 @@ using Microsoft.CodeAnalysis;
 
 namespace InventoryManagement.Domain
 {
-    public class ProductCategory
+    public class ProductCategory : BaseDomain
     {
-        [Key]
-        public int CategoryId { get; set; }
         public string Name { get; set; }
        
     }

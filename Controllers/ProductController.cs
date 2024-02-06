@@ -1,158 +1,115 @@
 ﻿/*using Microsoft.AspNetCore.Mvc;
-using InventoryManagement.Domain;
-namespace Inventory.Controllers
+
+namespace InventoryManagement.Controllers
 {
-    [ApiController]
-    public class Product_Control : Controller
+    public class ProductController : Controller
     {
- 
-        [HttpGet]
-        [Route("get")]
- 
-        public string Index()
+        public IActionResult Index()
         {
-            return "Product";
-        }
-        [HttpPost]
-        [Route("create")]
-        public IActionResult CreateProduct([FromBody] Product product)
-        {
-            // Logic to create the product
-            // For demonstration purposes, let's just return the product name
-            return Ok($"Product '{product.Name}' created successfully.");
+            return View();
         }
     }
 }*/
 
-using InventoryManagement.Domain;
-using InventoryManagement.DTO;
-using InventoryManagement.Reposits;
+
+using InventoryManagement.Implementations;
+using InventoryManagement.Interfaces;
+using InventoryManagement.Models;
 using Microsoft.AspNetCore.Mvc;
 
-
-
-namespace ProductManagementcommerce.Controllers
-
+namespace ECommerceSample.Controllers
 {
-
     [ApiController]
-    [Route("Api/")]
+    [Route("products")]
     public class ProductController : Controller
-
     {
-
-        private IRepository<ProductCategory> Repository;
-
-        public ProductController(IRepository<ProductCategory> repository)
-
+        private readonly IProduct _productRepository;
+        public ProductController(IProduct productrepository)
         {
-
-            Repository = repository;
-
+            _productRepository = productrepository;
         }
 
-
-        [HttpPost]
-
-        [Route("Add/")]
-
-        public IActionResult AddProduct([FromBody] ProductCategory updatedProduct)
-
+        [HttpGet("getAll")]
+        public ICollection<ViewProduct> GetAllProducts()
         {
-
-            try
-
-            {
-
-                if (updatedProduct == null)
-
-                {
-
-                    return BadRequest("Product data is null.");
-
-                }
-
-                Repository.Add(updatedProduct); // Assuming Id is the primary key
-
-                //if (existingProduct == null)
-
-                //{
-
-                //    return NotFound($"Product with ID {updatedProduct.Id} not found.");
-
-                //}
-
-                //// Update properties based on the received data
-
-                //existingProduct.Id = updatedProduct.Id; 
-
-                //existingProduct.Name = updatedProduct.Name;
-
-                //// Assuming you have a method to update the entity in your repository
-
-                //_productRepository.Update(existingProduct);
-
-                return Ok("Product updated successfully.");
-
-            }
-
-            catch (Exception ex)
-
-            {
-
-                // Log the exception or handle it as needed
-
-                return StatusCode(500, $"Internal server error: {ex.Message}");
-
-            }
-
-        }
-        [HttpGet]
-        [Route("Get/{productId}")]
-        public IActionResult GetProduct(int productId)
-        {
-            try
-            {
-                var product = Repository.GetById(productId);
-
-                if (product == null)
-                {
-                    return NotFound($"Product with ID {productId} not found.");
-                }
-
-                return Ok(product);
-            }
-            catch (Exception ex)
-            {
-                // Log the exception or handle it as needed
-                return StatusCode(500, $"Internal server error: {ex.Message}");
-            }
-        }
-        [HttpDelete]
-        [Route("Delete/{productId}")]
-        public IActionResult DeleteProduct(int productId)
-        {
-            try
-            {
-                var product = Repository.GetById(productId);
-
-                if (product == null)
-                {
-                    return NotFound($"Product with ID {productId} not found.");
-                }
-
-                Repository.Delete(product);
-
-                return Ok($"Product with ID {productId} deleted successfully.");
-            }
-            catch (Exception ex)
-            {
-                // Log the exception or handle it as needed
-                return StatusCode(500, $"Internal server error: {ex.Message}");
-            }
+            return _productRepository.GetAllProduct();
         }
 
+        [HttpGet("get/{id}")]
+        public ViewProduct GetProduct(Guid id)
+        {
+            return _productRepository.GetProductById(id);
+        }
 
+        [HttpPut("add")]
+        public Guid AddProduct([FromBody] PostProduct prod)
+        {
+            return _productRepository.AddProduct(prod);
+        }
+
+        [HttpDelete("delete")]
+        public void DeleteProduct(Guid id)
+        {
+            _productRepository.DeleteProduct(id);
+        }
+
+        [HttpPatch("update/{id}")]
+        public void UpdateProduct(Guid id, [FromBody] PostProduct prod)
+        {
+            _productRepository.UpdateProduct(id, prod);
+        }
     }
-
 }
+
+
+/*
+using InventoryManagement.Domain;
+using InventoryManagement.Models;
+using InventoryManagement.Reposits;
+using InventoryManagement.Interfaces;
+using Microsoft.AspNetCore.Mvc;
+
+namespace InventoryManagement.Controllers
+{
+        [ApiController]
+        [Route("products")]
+        public class ProductController : Controller
+        {
+            private readonly IProduct _productRepository;
+            public ProductController(IProduct productrepository)
+            {
+                _productRepository = productrepository;
+            }
+
+            [HttpGet("getAll")]
+            public ICollection<ViewProduct> GetAllProducts()
+            {
+                return _productRepository.GetAllProduct();
+            }
+
+            [HttpGet("get/{id}")]
+            public ViewProduct GetProduct(Guid id)
+            {
+                return _productRepository.GetProductById(id);
+            }
+
+            [HttpPut("add")]
+            public Guid AddProduct([FromBody] PostProduct prod)
+            {
+                return _productRepository.AddProduct(prod);
+            }
+
+            [HttpDelete("delete")]
+            public void DeleteProduct(Guid id)
+            {
+                _productRepository.DeleteProduct(id);
+            }
+
+            [HttpPatch("update/{id}")]
+            public void UpdateProduct(Guid id, [FromBody] PostProduct prod)
+            {
+                _productRepository.UpdateProduct(id, prod);
+            }
+        }
+ }
+ */
