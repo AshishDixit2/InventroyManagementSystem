@@ -10,3 +10,4 @@ namespace InventoryManagement.Interfaces
         public ViewCustomer GetOrdersByCustomers(Guid id);
     }
 }
+                                                

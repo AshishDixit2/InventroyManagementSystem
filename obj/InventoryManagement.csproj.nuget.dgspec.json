@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\hp\\Desktop\\InventoryManagementSystem\\InventoryManagement\\InventoryManagement.csproj": {}
+    "C:\\Users\\ashish.dixit\\OneDrive - Taazaa Tech Pvt Ltd\\Desktop\\InventoryManagementSystemFinal\\InventoryManagementSystem\\InventoryManagement\\InventoryManagement.csproj": {}
   },
   "projects": {
-    "C:\\Users\\hp\\Desktop\\InventoryManagementSystem\\InventoryManagement\\InventoryManagement.csproj": {
+    "C:\\Users\\ashish.dixit\\OneDrive - Taazaa Tech Pvt Ltd\\Desktop\\InventoryManagementSystemFinal\\InventoryManagementSystem\\InventoryManagement\\InventoryManagement.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\hp\\Desktop\\InventoryManagementSystem\\InventoryManagement\\InventoryManagement.csproj",
+        "projectUniqueName": "C:\\Users\\ashish.dixit\\OneDrive - Taazaa Tech Pvt Ltd\\Desktop\\InventoryManagementSystemFinal\\InventoryManagementSystem\\InventoryManagement\\InventoryManagement.csproj",
         "projectName": "InventoryManagement",
-        "projectPath": "C:\\Users\\hp\\Desktop\\InventoryManagementSystem\\InventoryManagement\\InventoryManagement.csproj",
-        "packagesPath": "C:\\Users\\hp\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\hp\\Desktop\\InventoryManagementSystem\\InventoryManagement\\obj\\",
+        "projectPath": "C:\\Users\\ashish.dixit\\OneDrive - Taazaa Tech Pvt Ltd\\Desktop\\InventoryManagementSystemFinal\\InventoryManagementSystem\\InventoryManagement\\InventoryManagement.csproj",
+        "packagesPath": "C:\\Users\\ashish.dixit\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ashish.dixit\\OneDrive - Taazaa Tech Pvt Ltd\\Desktop\\InventoryManagementSystemFinal\\InventoryManagementSystem\\InventoryManagement\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\hp\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\ashish.dixit\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

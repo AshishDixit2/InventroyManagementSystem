@@ -79,6 +79,35 @@ app.Run();
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*using Microsoft.EntityFrameworkCore;
 using InventoryManagement;
 using InventoryManagement.Domain;
